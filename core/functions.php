@@ -8,19 +8,19 @@ $url = new Url();
 function checkIsNotLogin()
 {
 	if (!isset($_SESSION['login'])) {
-		header("Location:http://localhost/percobaan_perpus/login");
+		header("Location:http://localhost/digitalibrary/login");
 	}
 }
 
 function urlTo($to)
 {
-	return 'http://localhost/percobaan_perpus'.$to;
+	return 'http://localhost/digitalibrary'.$to;
 }
 
 function redirectTo($icon, $pesan, $tujuan)
 {
 	setcookie('alert', serialize([$icon, $pesan]), time() + 1, '/');
-	header("Location:http://localhost/percobaan_perpus".$tujuan);
+	header("Location:http://localhost/digitalibrary".$tujuan);
 }
 
 function getTitle()

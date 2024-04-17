@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Feb 2024 pada 10.49
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Generation Time: Apr 17, 2024 at 02:31 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `perpus_digital`
+-- Database: `digitalibrary`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `buku`
+-- Table structure for table `buku`
 --
 
 CREATE TABLE `buku` (
@@ -33,47 +33,79 @@ CREATE TABLE `buku` (
   `Penulis` varchar(255) DEFAULT NULL,
   `Penerbit` varchar(255) DEFAULT NULL,
   `TahunTerbit` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `buku`
+--
+
+INSERT INTO `buku` (`BukuID`, `Judul`, `Penulis`, `Penerbit`, `TahunTerbit`) VALUES
+(1, 'naruto', 'valdi', 'erlangga', 2020),
+(2, 'doraemon', 'septi', 'pt bintang', 2012);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategoribuku`
+-- Table structure for table `kategoribuku`
 --
 
 CREATE TABLE `kategoribuku` (
   `KategoriID` int(11) NOT NULL,
   `NamaKategori` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kategoribuku`
+--
+
+INSERT INTO `kategoribuku` (`KategoriID`, `NamaKategori`) VALUES
+(1, 'novel'),
+(2, 'komik');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategoribuku_relasi`
+-- Table structure for table `kategoribuku_relasi`
 --
 
 CREATE TABLE `kategoribuku_relasi` (
   `KategoriBukuID` int(11) NOT NULL,
   `BukuID` int(11) NOT NULL,
   `KategoriID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kategoribuku_relasi`
+--
+
+INSERT INTO `kategoribuku_relasi` (`KategoriBukuID`, `BukuID`, `KategoriID`) VALUES
+(1, 1, 1),
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `koleksipribadi`
+-- Table structure for table `koleksipribadi`
 --
 
 CREATE TABLE `koleksipribadi` (
   `KoleksiID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `BukuID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `koleksipribadi`
+--
+
+INSERT INTO `koleksipribadi` (`KoleksiID`, `UserID`, `BukuID`) VALUES
+(3, 2, 2),
+(4, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `peminjaman`
+-- Table structure for table `peminjaman`
 --
 
 CREATE TABLE `peminjaman` (
@@ -83,12 +115,21 @@ CREATE TABLE `peminjaman` (
   `TanggalPeminjaman` date DEFAULT NULL,
   `TanggalPengembalian` date DEFAULT NULL,
   `StatusPeminjaman` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`PeminjamanID`, `UserID`, `BukuID`, `TanggalPeminjaman`, `TanggalPengembalian`, `StatusPeminjaman`) VALUES
+(1, 2, 1, '2024-04-16', '2024-04-16', 'Sudah di Kembalikan'),
+(2, 2, 2, '2024-04-16', NULL, 'Belum di Kembalikan'),
+(3, 2, 2, '2024-04-17', NULL, 'Belum di Kembalikan');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ulasanbuku`
+-- Table structure for table `ulasanbuku`
 --
 
 CREATE TABLE `ulasanbuku` (
@@ -97,12 +138,19 @@ CREATE TABLE `ulasanbuku` (
   `BukuID` int(11) NOT NULL,
   `Ulasan` text DEFAULT NULL,
   `Rating` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ulasanbuku`
+--
+
+INSERT INTO `ulasanbuku` (`UlasanID`, `UserID`, `BukuID`, `Ulasan`, `Rating`) VALUES
+(1, 2, 1, 'bagus', 5);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -113,33 +161,35 @@ CREATE TABLE `users` (
   `NamaLengkap` varchar(255) DEFAULT NULL,
   `Alamat` text DEFAULT NULL,
   `Role` enum('Administrator','Petugas','Peminjam') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`UserID`, `Username`, `Password`, `Email`, `NamaLengkap`, `Alamat`, `Role`) VALUES
-(1, 'admin', '$2y$10$QHOygX0mw4ApPok/UNuNee5mXMOdAUPbL9IPzDTsL42y4sQK//BJ.', 'admin@gmail.com', 'Administrator Pertama', 'Kiarapayung', 'Administrator');
+(1, 'admin', '$2y$10$QHOygX0mw4ApPok/UNuNee5mXMOdAUPbL9IPzDTsL42y4sQK//BJ.', 'admin@gmail.com', 'Administrator Pertama', 'antapani', 'Administrator'),
+(2, 'valdi', '$2y$10$pXjNhY7k6hy9aFgsU1LMf.GH3BSJV34FJuOii7yrNmpdt9bNWplDS', 'valdi@gmail.com', 'valdi', 'uber', 'Peminjam'),
+(3, 'andi', '$2y$10$AF1Clj9nR20yu7K/b6nfYOzcGYoiSPOa42vPQ0zFIlSOYNHZxLZ3.', 'andi@gmail.com', 'andi', 'gerlong', 'Petugas');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `buku`
+-- Indexes for table `buku`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`BukuID`);
 
 --
--- Indeks untuk tabel `kategoribuku`
+-- Indexes for table `kategoribuku`
 --
 ALTER TABLE `kategoribuku`
   ADD PRIMARY KEY (`KategoriID`);
 
 --
--- Indeks untuk tabel `kategoribuku_relasi`
+-- Indexes for table `kategoribuku_relasi`
 --
 ALTER TABLE `kategoribuku_relasi`
   ADD PRIMARY KEY (`KategoriBukuID`),
@@ -147,7 +197,7 @@ ALTER TABLE `kategoribuku_relasi`
   ADD KEY `KategoriID` (`KategoriID`);
 
 --
--- Indeks untuk tabel `koleksipribadi`
+-- Indexes for table `koleksipribadi`
 --
 ALTER TABLE `koleksipribadi`
   ADD PRIMARY KEY (`KoleksiID`),
@@ -155,7 +205,7 @@ ALTER TABLE `koleksipribadi`
   ADD KEY `BukuID` (`BukuID`);
 
 --
--- Indeks untuk tabel `peminjaman`
+-- Indexes for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
   ADD PRIMARY KEY (`PeminjamanID`),
@@ -163,7 +213,7 @@ ALTER TABLE `peminjaman`
   ADD KEY `BukuID` (`BukuID`);
 
 --
--- Indeks untuk tabel `ulasanbuku`
+-- Indexes for table `ulasanbuku`
 --
 ALTER TABLE `ulasanbuku`
   ADD PRIMARY KEY (`UlasanID`),
@@ -171,85 +221,85 @@ ALTER TABLE `ulasanbuku`
   ADD KEY `BukuID` (`BukuID`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `Username` (`Username`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `buku`
+-- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `BukuID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `BukuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `kategoribuku`
+-- AUTO_INCREMENT for table `kategoribuku`
 --
 ALTER TABLE `kategoribuku`
-  MODIFY `KategoriID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KategoriID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `kategoribuku_relasi`
+-- AUTO_INCREMENT for table `kategoribuku_relasi`
 --
 ALTER TABLE `kategoribuku_relasi`
-  MODIFY `KategoriBukuID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KategoriBukuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `koleksipribadi`
+-- AUTO_INCREMENT for table `koleksipribadi`
 --
 ALTER TABLE `koleksipribadi`
-  MODIFY `KoleksiID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KoleksiID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `peminjaman`
+-- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `PeminjamanID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PeminjamanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `ulasanbuku`
+-- AUTO_INCREMENT for table `ulasanbuku`
 --
 ALTER TABLE `ulasanbuku`
-  MODIFY `UlasanID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UlasanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `kategoribuku_relasi`
+-- Constraints for table `kategoribuku_relasi`
 --
 ALTER TABLE `kategoribuku_relasi`
   ADD CONSTRAINT `kategoribuku_relasi_ibfk_1` FOREIGN KEY (`BukuID`) REFERENCES `buku` (`BukuID`) ON DELETE CASCADE,
   ADD CONSTRAINT `kategoribuku_relasi_ibfk_2` FOREIGN KEY (`KategoriID`) REFERENCES `kategoribuku` (`KategoriID`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `koleksipribadi`
+-- Constraints for table `koleksipribadi`
 --
 ALTER TABLE `koleksipribadi`
   ADD CONSTRAINT `koleksipribadi_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE,
   ADD CONSTRAINT `koleksipribadi_ibfk_2` FOREIGN KEY (`BukuID`) REFERENCES `buku` (`BukuID`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `peminjaman`
+-- Constraints for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
   ADD CONSTRAINT `peminjaman_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE,
   ADD CONSTRAINT `peminjaman_ibfk_2` FOREIGN KEY (`BukuID`) REFERENCES `buku` (`BukuID`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `ulasanbuku`
+-- Constraints for table `ulasanbuku`
 --
 ALTER TABLE `ulasanbuku`
   ADD CONSTRAINT `ulasanbuku_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE,

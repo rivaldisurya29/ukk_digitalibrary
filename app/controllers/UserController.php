@@ -69,6 +69,7 @@ class UserController extends Controller
   public function cetakuser()
   {
     $data = $this->model('KURelasi')->get();
+    $html  = "<img >";
     $html 	= "<center>";
 		$html 	.= "<h1>SMK MERDEKA BANDUNG        </h1>";
 		$html 	.= "<h2>PERPUSTAKAAN DIGITAL</h2>";

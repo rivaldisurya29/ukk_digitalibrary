@@ -20,7 +20,11 @@
 <div class="login-box ">
 <div class="card card-purple card-outline">    
     <div class="card-body login-card-body ">
-      <p class="login-box-msg text-bold">SELAMAT DATANG</p>
+<div class="text-center">
+    <img src="https://cdn.pixabay.com/photo/2017/10/03/20/30/book-2814026_1280.jpg" class="col-6 " alt="...">
+    </div>
+    
+          <p class="login-box-msg text-bold">SELAMAT DATANG</p>
       
       <form action="<?= urlTo('/login/login'); ?>" method="post">
         <div class="input-group mb-3">

@@ -1,3 +1,9 @@
+<style>
+  body {
+    background-image: url('https://lp2m.uma.ac.id/wp-content/uploads/2021/10/buku-buku.jpg');
+}
+</style>
+<body>
 <?php include '../app/views/templates/header.php'; ?>
 <div class="container-fluid">
 <div class="row">
@@ -13,9 +19,9 @@
       </div>
     </div>
   </section>
-
-        
+ 
           <!-- ./col -->
         </div>
 </div>
 <?php include '../app/views/templates/footer.php'; ?>
+</body>

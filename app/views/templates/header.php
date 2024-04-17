@@ -42,8 +42,8 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
-        <div class="info bg-">
-<h5>Perpustakaan Digital</h5>
+        <div class="info fw-bold">
+<h5>DIGITALIBRARY</h5>
         </div>
       </div>
 

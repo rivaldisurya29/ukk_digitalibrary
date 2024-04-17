@@ -33,6 +33,7 @@
                       <td><?= $k['TanggalPengembalian']; ?></td>
                       <td><?= $k['StatusPeminjaman']; ?></td>
                     </tr>
+                    <?php $no++; ?>
                   <?php endforeach ?>
                   </tbody>
                 </table>

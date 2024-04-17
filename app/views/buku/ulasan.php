@@ -56,13 +56,6 @@
                     </tr>
                   <?php endforeach ?>
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Ulasan</th>
-                    <th>Rating</th>
-                    <th>Pemberi Ulasan</th>
-                  </tr>
-                  </tfoot>
                 </table>
             	</div>
             </div>
